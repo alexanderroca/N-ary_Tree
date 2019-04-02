@@ -5,6 +5,3 @@ public class NodeAlreadyExists extends Exception {
         super(MESSAGE);
     }
 }
-
-class NodeAlreadyExist {
-}
