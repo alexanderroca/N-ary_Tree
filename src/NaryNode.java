@@ -2,14 +2,20 @@ import java.util.ArrayList;
 
 public class NaryNode {
     static int DIMENSION_NODE;
-    private Object object;
-    private int key;
-    private ArrayList<NaryNode> sons;
+    private ArrayList<Node> sons;
+    private NaryNode parent;
 
-    public NaryNode(int key, Object object){
-        this.key = key;
-        this.object = object;
+    public NaryNode(){
         sons = new ArrayList<>(DIMENSION_NODE);
+    }
+
+    public boolean addChild(Node n){
+        boolean ok = false;
+        if(sons.size() < DIMENSION_NODE) {
+            sons.add(n);
+            ok = true;
+        }   //if
+        return ok;
     }
 
     public static int getDimensionNode() {
@@ -20,27 +26,19 @@ public class NaryNode {
         DIMENSION_NODE = dimensionNode;
     }
 
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
-
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
-    public ArrayList<NaryNode> getSons() {
+    public ArrayList<Node> getSons() {
         return sons;
     }
 
-    public void setSons(ArrayList<NaryNode> sons) {
+    public void setSons(ArrayList<Node> sons) {
         this.sons = sons;
+    }
+
+    public NaryNode getParent() {
+        return parent;
+    }
+
+    public void setParent(NaryNode parent) {
+        this.parent = parent;
     }
 }
