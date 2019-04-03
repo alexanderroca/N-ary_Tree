@@ -20,18 +20,21 @@ public class NaryTree {
         if(n_ary == null)
             return new NaryNode(new Node(key, null));   //TODO: Insert type of Object to use
         else{
-            goNode(n_ary, key);
+            root = goNode(n_ary, key);
         }   //else
-        return n_ary;
+        return root;
     }
 
     // Travel the N-Node
-    public void goNode(NaryNode n_ary, int key) throws NodeAlreadyExists{
+    public NaryNode goNode(NaryNode n_ary, int key) throws NodeAlreadyExists{
         int i = 0;
         while(!inserted){
             if (key == n_ary.getNodes().get(i).getKey())
                 throw new NodeAlreadyExists();
             else {
+                if(n_ary.getSons() != null){
+                    choseBestSon(n_ary, key);
+                }   //if
                 if (n_ary.getNodes().size() == NaryNode.DIMENSION_NODE) {
                     n_ary.addNode(new Node(key, null));  //TODO: Insert type of Object to use
                     split(n_ary);
@@ -43,6 +46,21 @@ public class NaryTree {
             }   //else
             i++;
         }   //while
+        System.out.println("HERE");
+        return root;
+    }
+
+    // Select best son to check the key
+    public void choseBestSon(NaryNode n_ary, int key) throws NodeAlreadyExists {
+        for(int i = 0; i < n_ary.getSons().size(); i++){
+            try {
+                if (key < n_ary.getNodes().get(i).getKey()) {
+                    goNode(n_ary.getSons().get(i), key);
+                }   //if
+            }catch(IndexOutOfBoundsException e){
+                goNode(n_ary.getSons().get(n_ary.getSons().size() - 1), key);
+            }
+        }   //for
     }
 
     // Split the actual Node
@@ -64,7 +82,15 @@ public class NaryTree {
         new_parent_n_ary.setHeight(n_ary.getHeight() + 1);
         new_left_n_ary.setParent(new_parent_n_ary);
         new_right_n_ary.setParent(new_parent_n_ary);
-        root = new_parent_n_ary;
+        setRoot(new_parent_n_ary);    //TODO: Comprovar casos
         inserted = true;
+    }
+
+    public NaryNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(NaryNode root) {
+        this.root = root;
     }
 }

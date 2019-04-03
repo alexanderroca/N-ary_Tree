@@ -7,6 +7,6 @@ public class main {
         n_tree.insert_T(10);
         n_tree.insert_T(5);
         n_tree.insert_T(15);
-
+        n_tree.insert_T(30);
     }
 }
